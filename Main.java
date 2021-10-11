@@ -8,16 +8,17 @@ public class Main  {
         int choice;
 
        do {
-           System.out.println("\nWybierz figurę lub prostopadłościan:  ");
+           System.out.println("\nWybierz figurę lub graniastołup:  ");
            System.out.println("kwadrat - \t 1:  ");
            System.out.println("trójkąt - \t 2:  ");
-           System.out.println("koło - \t\t 3:  ");
+           System.out.println("koło \t- \t 3:  ");
 
-           System.out.println("prostopadłościan o podstawie kwadratu - \t\t 4:  ");
-           System.out.println("prostopadłościan o podstawie trójkąta - \t\t 5:  ");
+           System.out.println("graniastołup o podstawie kwadratu - \t 4:  ");
+           System.out.println("graniastołup o podstawie trójkąta - \t 5:  ");
+           System.out.println("graniastołup o podstawie koła \t- \t\t 6:  ");
 
 
-           System.out.println("Aby wyłączyć program - \t\t 0:  ");
+           System.out.println("Aby wyłączyć kalkulator wybierz - \t\t 0:  ");
 
            choice = scanner.nextInt();
 
@@ -27,8 +28,15 @@ public class Main  {
 
                     System.out.println("Podaj bok kwadratu: ");
                     double a = scanner.nextDouble();
-                    Square square =new Square(a);
-                    square.print();
+
+                    try{                                    //obsługa wyjątków
+                        Square square =new Square(a);
+                        square.print();
+                    }
+                    catch (IllegalArgumentException exception){
+                        System.out.println("Podano błędne dane" );
+                    }
+
                     break;
 
                 case 2:
@@ -45,25 +53,28 @@ public class Main  {
                     System.out.println("Podaj trzeci bok trójkąta: ");
                     double side3 = scanner.nextDouble();
 
-                    if (base < side2 + side3 && side2 < side3 + base && side3 < side2 + base){
+                    try {
                         Triangle triangle = new Triangle(base, height, side2, side3);
-
                         triangle.print();
                     }
-                   else{
-                       System.out.println("Podano nieodpowiednie dane!");
+                    catch(IllegalArgumentException exception){
+                        System.out.println("Podano błędne dane" );
                     }
+
                     break;
 
                 case 3:
 
                     System.out.println("Podaj promień koła: ");
-
                     double r = scanner.nextDouble();
 
-                    Circle circle = new Circle(r);
-
-                    circle.print();
+                    try{                                    //obsługa wyjątków
+                        Circle circle = new Circle(r);
+                        circle.print();
+                    }
+                    catch (IllegalArgumentException exception){
+                        System.out.println("Podano błędny promień" );
+                    }
 
                     break;
 
@@ -71,40 +82,70 @@ public class Main  {
 
                     System.out.println("Podaj bok kwadratu - podstawy graniastołupa: ");
                     double b = scanner.nextDouble();
-                    Square baseOfSquare =new Square(b);
 
-                    System.out.println("Podaj wysokość graniastosłupa: ");
-                    double heightOfSquare = scanner.nextDouble();
+                    try{
+                        Square baseOfSquare =new Square(b);
 
-                    PrismS prism=new PrismS(baseOfSquare, heightOfSquare);
+                        System.out.println("Podaj wysokość graniastosłupa: ");
+                        double heightOfSquare = scanner.nextDouble();
 
-                    System.out.println("Pole graniastosłupa: " + prism.calculateArea());
-                    System.out.println("Objetość graniastosłupa: " + prism.calculateVolume());
+                        Prism prismS=new Prism(baseOfSquare, heightOfSquare);
+
+                        prismS.print();
+                    }
+                   catch(IllegalArgumentException exception){
+                       System.out.println("Podano błędne dane" );
+                   }
 
                     break;
 
                 case 5:
 
-                    System.out.println("Podaj dlugość boku podstawy trójkąta: ");
-                    double baseOfPrism = scanner.nextDouble();
+                    System.out.println("Podaj dlugość boku trójkąta - podstawy graniastoslupa: ");
+                    double baseOfPrism = scanner.nextDouble(); //długiśc podstawy trójkąta
 
                     double side2OfBase = baseOfPrism;
 
-                    double side3OfBase = baseOfPrism; //dodac ze jesli boki sa takie same to obwod - 3*bok
+                    double side3OfBase = baseOfPrism;
 
                    double heightOfBase = Math.sqrt(3)* baseOfPrism /2;
 
-
                         System.out.println("Podaj wysokosc graniastolupa: ");
 
-                        double hightOfPrism = scanner.nextDouble();
+                        double hightOfPrismT = scanner.nextDouble();
 
+
+                    try{
                         Triangle BaseOfPrism = new Triangle(baseOfPrism, heightOfBase, side2OfBase, side3OfBase);
 
-                        PrismT prismT =new PrismT(BaseOfPrism, hightOfPrism);
+                        Prism prismT =new Prism(BaseOfPrism, hightOfPrismT);
 
-                        System.out.println("Pole graniastoslupa wynosi: " + prismT.calculateArea());
-                        System.out.println("Objetosc graniastoslupa wynosi: " + prismT.calculateVolume());
+                        prismT.print(); }
+                    catch(IllegalArgumentException exception){
+                        System.out.println("Podano błędne dane" );
+                    }
+
+                    break;
+
+                case 6:
+
+                    System.out.println("Podaj promien kola - podstawy walca: ");
+                    double rOfBase = scanner.nextDouble();
+
+                    System.out.println("Podaj wysokosc graniastolupa: ");
+
+                    double hightOfPrism = scanner.nextDouble();
+
+                    try{
+                    Circle baseOfPrismC = new Circle(rOfBase);
+
+                    Prism prismC =new Prism(baseOfPrismC, hightOfPrism);
+
+                    prismC.print(); }
+
+                    catch(IllegalArgumentException exception){
+                            System.out.println("Podano błędne dane" );
+                        }
 
                     break;
 
