@@ -1,2 +1,3 @@
-# lab_1-kalkulator
-obliczenie pól, obwodów, pojemności
+kalkulator figur
+obliczenie pól, obwodów, objętości prostopadłościanów i figur
+abstrakcja, dziedziczenie
